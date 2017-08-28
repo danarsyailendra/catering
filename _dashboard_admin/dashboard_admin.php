@@ -106,19 +106,19 @@
                             <!-- /.modal-dialog -->
                         </div>
                         <br><br><br>
-                        <div style="display: box;white-space: nowrap;overflow-x: auto;height: 500px">
+                        <div style="display: box;white-space: nowrap;overflow-x: auto;height: 500px; width: 100%">
                             <table class="table table-striped table-bordered table-hover table-checkable order-column" id="tambahMenu">
                                 <thead>
                                     <tr>
-                                        <th width="5%">No</th>
-                                        <th width="10%">Menu ID</th>
+                                        <th width="0%">No</th>
+                                        <th width="40%">Menu ID</th>
                                         <th width="20%">Tanggal</th>
-                                        <th width="15%">Menu</th>
-                                        <th width="15%">Jumlah Orang</th>
-                                        <th width="10%">Act</th>
-                                        <th width="10%">Minggu</th>
-                                        <th width="10%">Bulan</th>
-                                        <th width="10%">Tahun</th>
+                                        <th width="20%">Menu</th>
+                                        <th width="5%">Jumlah Orang</th>
+                                        <th width="5%">Act</th>
+                                        <th width="0%">Minggu</th>
+                                        <th width="0%">Bulan</th>
+                                        <th width="0%">Tahun</th>
                                         <th width="10%">Status</th>
                                     </tr>
                                 </thead>

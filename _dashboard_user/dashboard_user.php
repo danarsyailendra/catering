@@ -58,12 +58,16 @@ $gd = getdate();
         <!-- END PAGE TOOLBAR -->
 
     </div>
+    <div class="page-body">
+         <div id="calendar" class="has-toolbar"> </div>
+    </div>
+    <!--
     <div class="page-body" id="list">
         <?php
-        include '_dashboard_user/dashboard_user_act.php'
+       // include '_dashboard_user/dashboard_user_act.php'
         ?>
     </div>
-    <!-- END PAGE HEAD-->            
+    <!-- END PAGE HEAD            
 </div>
 <script>
     function callAjax(url, pageElement, callMessage, errorMessage) {
@@ -102,4 +106,4 @@ $gd = getdate();
         callAjax(tab, 'list', '', 'Error');
     }
 
-</script>
+</script>-->

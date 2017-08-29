@@ -5,9 +5,11 @@ include '../config/config.php';
 
 $makanan = tampil('t_menu_makanan','menu_id,date,menu,year,month,week,close','menu_id is not null and active = 1 order by menu_id,close');
 
+$k=1;
 //$makanan[query];
 if (($makanan[rowsnum] > 0 )) {
 for ($i = 0; $i < $makanan[rowsnum]; $i++) {
+    $week_prev = $week; 
     $menu_id = $makanan[$i][0];
     $tanggal = $makanan[$i][1];
     $menu = $makanan[$i][2];
@@ -40,19 +42,20 @@ for ($i = 0; $i < $makanan[rowsnum]; $i++) {
         $day_ = hari($day) .', '. indo($tanggal);
     
     $menu_id = ($menu_id == '') ? '-' : $menu_id;
+    $k = ($week != $week_prev)? 1:$k;
     $data[] = array(
-        $i + 1,
+        $k,
         $menu_id,
         $day_,
         $menu,
         $orang,
         $button,
-        $year,
-        $month,
         $week,
+        $month,
+        $year,
         $status
-        
     );
+    $k++;
 } 
 } else {
     $data[] = array(

@@ -24,18 +24,18 @@ if (isset($_POST['submit'])) {
     $tanggal_ = date('Y/m/d');
     
     $cek = tampil('p_menu_malam', 'nama_makanan', "nama_makanan = '$nama_makanan' and active = 1");
-    echo $cek[query];
+    $cek[query];
     if ($cek[rowsnum] > 0) {
         echo "<script type='text/javascript'>";
         echo "alert('Menu sudah ada!');";
-        echo "location.href='../index.php';";
+        echo "location.href='../?page=21';";
         echo "</script>";
     } else {
         $insert = insert("p_menu_malam", "nama_makanan,date", "'$nama_makanan',SYSDATE()");
         if ($insert[status] == true) {
             echo "<script type='text/javascript'>";
             echo "alert('Menu berhasil diinput');";
-            echo "location.href='../index.php';";
+            echo "location.href='../?page=21';";
             echo "</script>";
         }
     }
@@ -75,18 +75,18 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label">Tanggal</label>
-                        <input type="text" class="form-control date-picker" data-date-start-date="+0d" name="tanggal_menu_malam" readonly="" value="<?= date('Y/m/d') ?>">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label">Menu</label>
                         <textarea class="form-control" name="nama_makanan"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <input class="form-control date-picker" data-date-start-date="+0d" name="tanggal_menu_malam" readonly="" value="<?= date('Y/m/d') ?>" type="hidden">
                     </div>
                 </div>
             </div>

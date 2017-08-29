@@ -62,13 +62,14 @@
                         </div>
                         <br><br><br>
                         <div style="display: box;white-space: nowrap;overflow-x: auto;height: 500px">
-                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="daftarMenu">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="daftarMenu" style="width: 95%">
                                 <thead>
                                     <tr>
                                         <th width="5%">No</th>
                                         <th width="10%">Makanan ID</th>
-                                        <th width="10%">Makanan</th>
+                                        <th width="65%">Makanan</th>
                                         <th width="10%">Act</th>
+                                        <th width="10%">Status</th>
                                     </tr>
                                 </thead>
                             </table> 

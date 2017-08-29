@@ -17,6 +17,13 @@ if (isset($_POST['submit'])) {
     */
     
     $nama_makanan = $_POST['nama_makanan'];
+    $active = $_POST['active'];
+    
+    if ($active==1) {
+        $delete = update('p_menu_malam', 'active=1', "makanan_id = '$makanan_id'");
+    } else {
+        $delete = update('p_menu_malam', 'active=0', "makanan_id = '$makanan_id'");
+    }
     
     //$makanan_id_baru = 'MKN-' . $tgl_baru;
     //$insert = mysqli_query($con,"insert into t_menu_makanan(menu_id,menu,date) values ('$menu_id','$menu','$tgl_baru')");
@@ -25,7 +32,7 @@ if (isset($_POST['submit'])) {
     if ($update[status] == true) {
         echo "<script type='text/javascript'>";
         echo "alert('Menu berhasil diupdate');";
-        echo "location.href='../';";
+        echo "location.href='../?page=21';";
         echo "</script>";
     }
     
@@ -39,30 +46,43 @@ if (isset($_POST['submit'])) {
             
             <?php
             $makanan_id = $_GET['id'];
-            $makanan = tampil('p_menu_malam', 'nama_makanan', "makanan_id = '$makanan_id'");
-            list($nama_makanan) = $makanan[0];
+            $makanan = tampil('p_menu_malam', 'nama_makanan,active', "makanan_id = '$makanan_id'");
+            list($nama_makanan, $active) = $makanan[0];
             //$waktu = explode(' ', $batas_waktu);
             ?>
             
             <h4 class="modal-title">Display / Update Menu Makanan </h4>
         </div>
         <div class="modal-body">
-            <!--
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Tanggal</label>
-                        <input type="text" class="form-control date-picker" data-date-start-date="+0d" name="tanggal_menu_malam" readonly="" value="<?= $date ?>">
+                        <label class="control-label">Active</label>
+                        <div class="mt-radio-inline">
+                            <label class="mt-radio">
+                                <input type="radio" name="active" value='1' <?=$checked = ($active=='1')?"checked":"" ?>> Ya
+                                <span></span>
+                            </label>
+                            <label class="mt-radio">
+                                <input type="radio" name="active" value='0' <?=$checked = ($active=='0' or $active == '')?"checked":"" ?>> Tidak
+                                <span></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            -->
-            <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label">Menu</label>
                         <textarea class="form-control" name="nama_makanan"><?= $nama_makanan ?></textarea>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <input class="form-control" type="hidden" readonly="" name="makanan_id" value="<?= $makanan_id ?>">
+                        </div>
                 </div>
             </div>
         </div>

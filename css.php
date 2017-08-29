@@ -67,7 +67,7 @@
     .pagination>.disabled>a, .pagination>.disabled>a:focus, 
     .pagination>.disabled>a:hover, .pagination>.disabled>span, 
     .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{
-        height: 33px
+        height: 30px
     }
     .page-sidebar .page-sidebar-menu .sub-menu>li.active>a, 
     .page-sidebar .page-sidebar-menu .sub-menu>li.open>a, 

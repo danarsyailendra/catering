@@ -172,12 +172,13 @@
                         $qparent = tampil("p_menu", "parent_id", "id_menu =". $_GET['page']);
                         list($parent_id) = $qparent[0];
                         $active = ($parent_id == $arr_menu[$i]) ? "active open" : "";
+                        $arrow = ($parent_id == $arr_menu[$i]) ? "open" : "";
                         ?>
                         <li class="nav-item start <?=$active?>">
                             <a href="javascript:;" class="nav-link">
                                 <i class="<?= $icon ?>"></i>
                                 <span class="title"><?= $nama_menu ?></span>
-                                <span class="arrow"></span>
+                                <span class="arrow <?=$arrow?>"></span>
                             </a>
                             <ul class="sub-menu">
                                 <?php
@@ -273,12 +274,12 @@
             "dom": '<"top"if>rt<"bottom"p><"clear">',
             "columnDefs": [
                 {
-                    "targets": [0,6,7,8],
+                    "targets": [6,7,8],
                     "visible": false
                 }
             ],
             "order": [
-                [1,"asc"]
+                [0,"asc"]
             ]
         });
         
@@ -292,6 +293,12 @@
             "ajax": "_admin_menu/admin_daftar_menu_act.php",
             "pageLength": 10,
             "dom": '<"top"if>rt<"bottom"p><"clear">',
+            "columnDefs": [
+                {
+                    "targets": [1],
+                    "visible": false
+                }
+            ],
             "order": [
                 [0,"asc"]
             ]
@@ -299,24 +306,33 @@
         
         //untuk filter dashboard admin
         //sebelum filter diubah
-        table.columns(6).search(document.getElementById('tahun').value).draw(); 
+        table.columns(6).search(document.getElementById('minggu').value).draw(); 
         table.columns(7).search(document.getElementById('bulan').value).draw(); 
-        table.columns(8).search(document.getElementById('minggu').value).draw();
+        table.columns(8).search(document.getElementById('tahun').value).draw();
         //sesudah filter diubah
         $('#minggu').on('change', function(){
-           table.columns(8).search(this.value).draw(); 
-           table.columns(6).search(document.getElementById('tahun').value).draw();
+           table.columns(6).search(this.value).draw(); 
+           table.columns(8).search(document.getElementById('tahun').value).draw();
            table.columns(7).search(document.getElementById('bulan').value).draw(); 
         });
         $('#bulan').on('change', function(){
            table.columns(7).search(this.value).draw(); 
-           table.columns(6).search(document.getElementById('tahun').value).draw();
-           table.columns(8).search(document.getElementById('minggu').value).draw(); 
+           table.columns(8).search(document.getElementById('tahun').value).draw();
+           table.columns(6).search(document.getElementById('minggu').value).draw(); 
         });
         $('#tahun').on('change', function(){
            table.columns(7).search(document.getElementById('bulan').value).draw(); 
-           table.columns(6).search(this.value).draw(); 
-           table.columns(8).search(document.getElementById('minggu').value).draw(); 
+           table.columns(8).search(this.value).draw(); 
+           table.columns(6).search(document.getElementById('minggu').value).draw(); 
         });
     });
 </script>
+
+<!--
+<script>
+    $(document).ready(function () {
+        
+
+    });
+</script>
+-->

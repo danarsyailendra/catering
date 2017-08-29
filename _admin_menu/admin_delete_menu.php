@@ -3,15 +3,15 @@ session_start();
 include '../config/config.php';
 if (isset($_POST['submit'])) {
     $makanan_id = $_POST['makanan_id'];
-    $delete = update('p_menu_malam', 'active=0', "makanan_id = '$makanan_id'");
+    $delete = update('p_menu_malam', 'disp=0', "makanan_id = '$makanan_id'");
     if ($delete[status] == true) {
         echo "<script type='text/javascript'>";
         echo "alert('Menu berhasil dihapus');";
-        echo "location.href='../';";
+        echo "location.href='../?page=21';";
         echo "</script>";
     }
 } else {
-    $menu_id = $_GET['id'];
+    $makanan_id = $_GET['id'];
     ?>
 <form method="post" action="_admin_menu/admin_delete_menu.php">
         <input type="hidden" name="makanan_id" value="<?= $makanan_id ?>">

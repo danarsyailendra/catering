@@ -306,7 +306,7 @@
         
         //untuk filter dashboard admin
         //sebelum filter diubah
-        table.columns(6).search(document.getElementById('minggu').value).draw(); 
+       /* table.columns(6).search(document.getElementById('minggu').value).draw(); 
         table.columns(7).search(document.getElementById('bulan').value).draw(); 
         table.columns(8).search(document.getElementById('tahun').value).draw();
         //sesudah filter diubah
@@ -324,7 +324,7 @@
            table.columns(7).search(document.getElementById('bulan').value).draw(); 
            table.columns(8).search(this.value).draw(); 
            table.columns(6).search(document.getElementById('minggu').value).draw(); 
-        });
+        });*/
     });
 </script>
 

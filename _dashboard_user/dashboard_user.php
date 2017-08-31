@@ -73,7 +73,49 @@ $gd = getdate();
     <div id="modal_isi_kehadiran" class="modal fade" tabindex="-1" role="basic" aria-hidden="true">
         <div class="modal-dialog" id="isi_kehadiran">
             <div class="modal-content">
-
+                <form method="POST" action="_dashboard_user/dashboard_user_kehadiran.php">
+                    <input type="hidden" name="menu_id" id="id" value="<?= $menu_id ?>">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">Kehadiran | <span id="mid"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Tanggal</label>
+                                    <input type="text" class="form-control" name="tanggal_menu" id="tanggal" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Hadir</label>
+                                    <div class="mt-radio-inline">
+                                        <label class="mt-radio">
+                                            <input type="radio" name="hadir" id="cek1" value='1'> Ya
+                                            <span></span>
+                                        </label>
+                                        <label class="mt-radio">
+                                            <input type="radio" name="hadir" id="cek2" value='0'> Tidak
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Menu</label>
+                                    <textarea class="form-control" id="title" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" id="button">
+                        <!--<input type="submit" class="btn red-sunglo" name="submit" value="Simpan">-->
+                    </div>
+                </form>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -137,27 +179,53 @@ $gd = getdate();
                 eventLimit: true,
                 selectable: true,
                 selectHelper: true,
-                eventRender: function(event, element) {
-                    element.bind('click', function() {
-			$('#modal_isi_kehadiran #id').val(event.id);
-			$('#modal_isi_kehadiran').modal('show');
+                eventRender: function (event, element) {
+                    element.bind('click', function () {
+                        $('#modal_isi_kehadiran #id').val(event.id);
+                        $('#modal_isi_kehadiran #mid').html(event.id);
+                        $('#modal_isi_kehadiran #cek1').prop(event.cek1,true);
+                        $('#modal_isi_kehadiran #cek2').prop(event.cek2,true);
+                        $('#modal_isi_kehadiran #button').html(event.button);
+                        $('#modal_isi_kehadiran #title').val(event.title);
+                        $('#modal_isi_kehadiran #tanggal').val(event.tanggal);
+                        $('#modal_isi_kehadiran').modal('show');
                     });
-		},
+                },
                 events: [
-                            <?php
-                                $menu_makanan = tampil("t_menu_makanan", "menu_id,menu,date", "active = 1");
-                                for ($i = 0; $i < $menu_makanan[rowsnum]; $i++) {
-                            ?>
-                                    {
-                                        id: '<?= $menu_makanan[$i][0] ?>',
-                                        title: '<?= $menu_makanan[$i][1] ?>',
-                                        start: '<?= $menu_makanan[$i][2] ?>',
-                                        end: '<?= $menu_makanan[$i][2] ?>',
-                                        color: '#96B2AC'
-                                    },
-                            <?php
-                                }
-                            ?>
+<?php
+$menu_makanan = tampil("t_menu_makanan ", "menu_id,menu,date", "active = 1");
+for ($i = 0; $i < $menu_makanan[rowsnum]; $i++) {
+    $hadir_row = tampil("t_kehadiran", "hadir", "menu_id ='" . $menu_makanan[$i][0] . "' and user_email = '" . $_SESSION['suser_email'] . "'");
+    list($hadir) = $hadir_row[0];
+    if(strtotime($menu_makanan[$i][2])< strtotime(date("d-m-Y"))){
+        $button = "Tes";
+    }else{
+        $button = '<input type="submit" class="btn red-sunglo" name="submit" value="Simpan">';
+    }
+    //untuk checkbox
+    if($hadir == 1){
+        $cek1 = 'checked';
+        $cek2 = '';
+    }else{
+        $cek1 = '';
+        $cek2 = 'checked';
+    }
+    ?>
+                        {
+                            id: '<?= $menu_makanan[$i][0] ?>',
+                            title: '<?= $menu_makanan[$i][1] ?>',
+                            start: '<?= $menu_makanan[$i][2] ?>',
+                            end: '<?= $menu_makanan[$i][2] ?>',
+                            tanggal: '<?= $menu_makanan[$i][2] ?>',
+                            cek1:'<?=$cek1?>',
+                            cek2:'<?=$cek2?>',
+                            hadir: '<?= $hadir ?>',
+                            button: '<?=$button?>',
+                            color: '#96B2AC'
+                        },
+    <?php
+}
+?>
                 ]
             });
         });

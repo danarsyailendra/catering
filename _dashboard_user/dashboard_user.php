@@ -3,7 +3,9 @@ $gd = getdate();
 ?>
 <style>
     .fc-event{
-        text-align: center
+        text-align: center;
+        height:45px !important;
+        padding-top: 30px
     }
 </style>
 <div class="page-content">
@@ -14,9 +16,9 @@ $gd = getdate();
             <h1>Dashboard User
             </h1>
         </div>
-        <div class="col-md-2">
+     <!--   <div class="col-md-2">
             <?php
-            $bulan = tampil("p_bulan", "*", "bulan_id is not null");
+         /*   $bulan = tampil("p_bulan", "*", "bulan_id is not null");
             ?>
             <select class="form-control" id="_bulan" onchange="call('_dashboard_user/dashboard_user_act.php?_bulan=' + this.options[this.selectedIndex].value + '&_year=' + document.getElementById('_year').options[document.getElementById('_year').selectedIndex].value + '&_week=' + document.getElementById('_week').options[document.getElementById('_week').selectedIndex].value)">
                 <?php
@@ -53,10 +55,10 @@ $gd = getdate();
                     ?>
                     <option value="<?= $i ?>"<?= $selected ?>>Minggu ke : <?= $i ?></option>
                     <?php
-                }
+                }*/
                 ?>
             </select>
-        </div>
+        </div>-->
         <!-- END PAGE TITLE -->
         <!-- BEGIN PAGE TOOLBAR -->
 
@@ -107,7 +109,7 @@ $gd = getdate();
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label">Menu</label>
-                                    <textarea class="form-control" id="title" readonly="readonly"></textarea>
+                                    <textarea class="form-control" id="menu" readonly="readonly"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +188,7 @@ $gd = getdate();
                         $('#modal_isi_kehadiran #cek1').prop(event.cek1,true);
                         $('#modal_isi_kehadiran #cek2').prop(event.cek2,true);
                         $('#modal_isi_kehadiran #button').html(event.button);
-                        $('#modal_isi_kehadiran #title').val(event.title);
+                        $('#modal_isi_kehadiran #menu').val(event.menu);
                         $('#modal_isi_kehadiran #tanggal').val(event.tanggal);
                         $('#modal_isi_kehadiran').modal('show');
                     });
@@ -197,8 +199,8 @@ $menu_makanan = tampil("t_menu_makanan ", "menu_id,menu,date", "active = 1");
 for ($i = 0; $i < $menu_makanan[rowsnum]; $i++) {
     $hadir_row = tampil("t_kehadiran", "hadir", "menu_id ='" . $menu_makanan[$i][0] . "' and user_email = '" . $_SESSION['suser_email'] . "'");
     list($hadir) = $hadir_row[0];
-    if(strtotime($menu_makanan[$i][2])< strtotime(date("d-m-Y"))){
-        $button = "Tes";
+    if(strtotime($menu_makanan[$i][2])< strtotime(date("d-m-Y")."+ 2 days")){
+        $button = '<button type="button" class="btn red-sunglo" data-dismiss="modal" aria-hidden="true">Close</button>';
     }else{
         $button = '<input type="submit" class="btn red-sunglo" name="submit" value="Simpan">';
     }
@@ -213,7 +215,8 @@ for ($i = 0; $i < $menu_makanan[rowsnum]; $i++) {
     ?>
                         {
                             id: '<?= $menu_makanan[$i][0] ?>',
-                            title: '<?= $menu_makanan[$i][1] ?>',
+                            title: '<?= $menu_makanan[$i][0] ?>',
+                            menu:'<?=$menu_makanan[$i][1]?>',
                             start: '<?= $menu_makanan[$i][2] ?>',
                             end: '<?= $menu_makanan[$i][2] ?>',
                             tanggal: '<?= $menu_makanan[$i][2] ?>',

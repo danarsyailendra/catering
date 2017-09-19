@@ -5,7 +5,7 @@ if (!function_exists('tampil')) {
 
 $_date = ($_GET['_date'])?$_GET['_date'] : date('Y-m-d');
 
-$pesan = tampil('t_pesan', 'pesan_id,nama_makanan,notes,date,close', "date = '$_date' and active = 1 order by date,pesan_id");
+$pesan = tampil('t_pesan', 'pesan_id,nama_makanan,notes,date,close', "date = '$_date' and active = 1 and email = '".$_SESSION['suser_name']."' order by date,pesan_id");
 //echo $menu[query];
 if ($pesan[rowsnum] > 0) {
     $hor = ceil($pesan[rowsnum] / 3);
@@ -108,15 +108,19 @@ if ($pesan[rowsnum] > 0) {
                 <div class="row">
                     <div class="col-md-12">
                         <span class="pull-right" style="float: right">
+                            <?php if(strtotime(date('d-m-Y H:i'))< strtotime($_date.' 16:30')){ ?>
                             <div class="col-md-2">
                                 <a href="_pesan_makan_malam/pesan_tambah_menu.php?date=<?= $_date ?>" data-target="#modal_update_menu_" data-toggle="modal" class="btn red btn-sm">
                                     <i class="fa fa-plus"></i>
                                     Tambah Pesanan
                                 </a>
                             </div>
+                            <?php }else{ ?>
+                            <span class="btn red-sunglo font-white-sunglo caption-subject bold uppercase"><i class="fa fa-close"></i>Closed</span>
+                            <?php } ?>
                         </span>
                         <center>
-                            <h2>Data not found</h2>
+                            <h2>Data Not Found</h2>
                         </center>
                     </div>
                 </div>

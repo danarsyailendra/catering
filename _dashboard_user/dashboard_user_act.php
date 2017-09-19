@@ -24,8 +24,10 @@ if ($menu[rowsnum] > 0) {
                 $date = $menu[$i][1];
                 $daftar_menu = $menu[$i][2];
                 $close = $menu[$i][3];
+                $email = $_SESSION['suser_email'];
+                //echo $cek[query];
                 $hari = date('D', strtotime($date));
-                $cek = tampil('t_kehadiran', 'hadir', "menu_id='$menu_id' and user_email = '" . $_SESSION['suser_email'] . "'");
+                $cek = tampil('t_kehadiran', 'hadir', "menu_id='$menu_id' and user_email = '" . $email . "'");
                 //echo $cek[query];
                 list($hadir) = $cek[0];
                 $hadir_text = '';
@@ -69,7 +71,7 @@ if ($menu[rowsnum] > 0) {
                                     <div class="col-md-12">
                                         <div class="note note-success">
                                             <center>
-                                                <?= $hadir_text = ($hadir == 0 or $hadir == '') ? "Tidak Hadir" : "Hadir" ?>
+                                                <?= $cek[query] ?>
                                             </center>
                                         </div>
                                     </div>

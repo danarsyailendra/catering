@@ -18,7 +18,7 @@ $gd = getdate();
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <input readonly type="text" class="form-control date-picker" class="day_filter date-picker" id="date" value="<?= date('Y/m/d') ?>" data-date-format="yyyy-mm-dd" name="tanggal_menu" onchange="call('_pesan_makan_malam/pesan_makan_malam_act.php?_date='+this.value)">
+                    <input readonly type="text" class="form-control date-picker" class="day_filter date-picker" data-date-start-date="+0d" id="date" value="<?= date('Y/m/d') ?>" data-date-format="yyyy-mm-dd" name="tanggal_menu" onchange="call('_pesan_makan_malam/pesan_makan_malam_act.php?_date='+this.value)">
                 </div>
             </div>
         </div>

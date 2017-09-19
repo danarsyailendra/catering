@@ -44,18 +44,18 @@ if (isset($_POST['submit'])) {
     //$insert = mysqli_query($con,"insert into t_menu_makanan(menu_id,menu,date) values ('$menu_id','$menu','$tgl_baru')");
 
     $cek = tampil('t_menu_makanan', 'date', "date = '$tanggal' and active = 1");
-    echo $cek[query];
+    //echo $cek[query];
     if ($cek[rowsnum] > 0) {
         echo "<script type='text/javascript'>";
         echo "alert('Menu sudah ada!');";
-        echo "location.href='../index.php';";
+        echo "location.href='../index.php?page=11';";
         echo "</script>";
     } else {
         $insert = insert("t_menu_makanan", "menu_id,year,month,week,date,menu,user_when", "'$menu_id','$thn_baru','$bln_baru','$wom','$tgl_baru','$menu',SYSDATE()");
         if ($insert[status] == true) {
             echo "<script type='text/javascript'>";
             echo "alert('Menu berhasil diinput');";
-            echo "location.href='../index.php';";
+            echo "location.href='../index.php?page=11';";
             echo "</script>";
         }
     }

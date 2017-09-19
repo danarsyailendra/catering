@@ -5,7 +5,7 @@ if (!function_exists('tampil')) {
 
 $_date = ($_GET['_date'])?$_GET['_date'] : date('Y-m-d');
 
-$pesan = tampil('t_pesan', 'pesan_id,nama_makanan,date,close', "date = '$_date' and active = 1 order by date,pesan_id");
+$pesan = tampil('t_pesan', 'pesan_id,nama_makanan,notes,date,close', "date = '$_date' and active = 1 order by date,pesan_id");
 //echo $menu[query];
 if ($pesan[rowsnum] > 0) {
     $hor = ceil($pesan[rowsnum] / 3);
@@ -19,19 +19,20 @@ if ($pesan[rowsnum] > 0) {
             for ($i = $k; $i < $l; $i++) {
 
                 //echo $menu[query];
-                $pesan_id = $pesan[$i][0];
+                $pesan_id     = $pesan[$i][0];
                 $nama_makanan = $pesan[$i][1];
-                $date = $pesan[$i][2];
-                $close = $pesan[$i][3];
-                $user = $_SESSION['suser_email'];
-                $hari = date('D', strtotime($date));
+                $notes        = $pesan[$i][2];
+                $date         = $pesan[$i][3];
+                $close        = $pesan[$i][4];
+                $user         = $_SESSION['suser_email'];
+                $hari         = date('D', strtotime($date));
                 //$cek = tampil('t_kehadiran', 'hadir', "menu_id='$menu_id' and user_email = '" . $_SESSION['suser_email'] . "'");
                 //echo $cek[query];
                 //list($hadir) = $cek[0];
                 //$hadir_text = '';
                 if ($pesan_id) {
                     ?>
-                    <div class="col-md-4">
+            <div class="col-md-6">
                         <div class="portlet light bordered">
                             <div class="portlet-title">
                                 <div class="caption">
@@ -41,34 +42,51 @@ if ($pesan[rowsnum] > 0) {
                                 </div>
                                 <div class="actions">
                                     <?php
-                                    if ($close == 0) {
+                                        if ($close == 0) {
                                         ?>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <a href="_pesan_makan_malam/pesan_update_menu.php?id=<?= $pesan_id ?>" data-target="#modal_update_menu_" data-toggle="modal" class="btn red btn-sm">
-                                                    <i class="fa fa-pencil"></i>
-                                                    Edit Pesanan
-                                                </a>
+                                            <div class="row">
+                                                <span class="pull-right" style="float: right">
+                                                    <div class="col-md-6">
+                                                        <a href="_pesan_makan_malam/pesan_update_menu.php?id=<?= $pesan_id ?>" data-target="#modal_update_menu_" data-toggle="modal" class="btn red btn-sm">
+                                                            <i class="fa fa-pencil"></i>
+                                                            Edit Pesanan
+                                                         </a>
+                                                    </div>
+                                                 </span>
                                             </div>
-                                        </div>
-                                        <?php
-                                    } else {
-                                       // echo date('W');
-                                        ?>
-                                        <span class="btn red-sunglo font-white-sunglo caption-subject bold uppercase"><i class="fa fa-close"></i>Closed</span>
-                                        <?php
-                                    }
-                                    ?>
+                                    <?php
+                                            } else {
+                                                // echo date('W');
+                                                ?>
+                                                <span class="btn red-sunglo font-white-sunglo caption-subject bold uppercase"><i class="fa fa-close"></i>Closed</span>
+                                                <?php
+                                                    }
+                                                    ?>
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="note note-success">
-                                            <center>
-                                                <?= $nama_makanan ?>
-                                            </center>
+                                <!--
+                                <div class="scroller" data-rail-visible="1" data-rail-color="red-sunglo" data-handle-color="#a1b2bd">
+                                -->
+                                    <!--
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Menu</h5>
                                         </div>
+                                        <div class="col-md-6">
+                                            <h5>Notes</h5>
+                                        </div>
+                                    </div>
+                                    -->
+                                    <div class="row">
+                                            <div class="col-md-6">
+                                                <h3><?= $nama_makanan ?></h3>
+                                            </div>
+                                    </div>
+                                    <div class="row">
+                                            <div class="col-md-6">
+                                                <p><?= $notes ?></p>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -89,6 +107,14 @@ if ($pesan[rowsnum] > 0) {
             <div class="portlet-body">
                 <div class="row">
                     <div class="col-md-12">
+                        <span class="pull-right" style="float: right">
+                            <div class="col-md-2">
+                                <a href="_pesan_makan_malam/pesan_tambah_menu.php?date=<?= $_date ?>" data-target="#modal_update_menu_" data-toggle="modal" class="btn red btn-sm">
+                                    <i class="fa fa-plus"></i>
+                                    Tambah Pesanan
+                                </a>
+                            </div>
+                        </span>
                         <center>
                             <h2>Data not found</h2>
                         </center>

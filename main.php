@@ -290,7 +290,7 @@
             "lengthChange": false,
             "Processing": true,
             "ServerSide": true,
-            "ajax": "_admin_menu/admin_daftar_menu_act.php",
+            "ajax": "_daftar_menu/daftar_menu_act.php",
             "pageLength": 10,
             "dom": '<"top"if>rt<"bottom"p><"clear">',
             "columnDefs": [
@@ -303,10 +303,35 @@
                 [0,"asc"]
             ]
         });
-        
+        //data table report
+       var report = $('#makanMalam').DataTable({
+            "cache": false,
+            "info": false,
+            "lengthChange": false,
+            "Processing": true,
+            "ServerSide": true,
+            "ajax": "_pesan_makan_malam_admin/pesan_makan_malam_admin_act.php",
+            "pageLength": 10,
+            "dom": '<"top"if>rt<"bottom"p><"clear">',
+            "columnDefs": [
+                {
+                    "targets": [1,5],
+                    "visible": false
+                }
+            ],
+            "order": [
+                [0,"asc"]
+            ]
+        });
+        //untuk filter report
+        report.column(5).search(document.getElementById('date').value).draw();
+        //setelah diubah
+        $('#date').on('change',function(){
+            report.column(5).search(document.getElementById('date').value).draw();
+        });
         //untuk filter dashboard admin
         //sebelum filter diubah
-       /* table.columns(6).search(document.getElementById('minggu').value).draw(); 
+        table.columns(6).search(document.getElementById('minggu').value).draw(); 
         table.columns(7).search(document.getElementById('bulan').value).draw(); 
         table.columns(8).search(document.getElementById('tahun').value).draw();
         //sesudah filter diubah
@@ -324,7 +349,7 @@
            table.columns(7).search(document.getElementById('bulan').value).draw(); 
            table.columns(8).search(this.value).draw(); 
            table.columns(6).search(document.getElementById('minggu').value).draw(); 
-        });*/
+        });
     });
 </script>
 

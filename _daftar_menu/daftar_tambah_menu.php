@@ -3,27 +3,39 @@ session_start();
 include '../config/config.php';
 if (isset($_POST['submit'])) {
 
-    $makanan_id   = $_POST['makanan_id'];
-    $user         = $_SESSION['suser_email'];
+    $makanan_id = $_POST['makanan_id'];
+
+    $tanggal = $_POST['tanggal_menu_malam'];
+    
+    function ubahTanggal($tanggal) {
+        $pisah = explode('/', $tanggal);
+        $array = array($pisah[0], $pisah[1], $pisah[2]);
+        $gabung = implode('-', $array);
+        return $gabung;
+    }
+
+    $tgl_baru = ubahTanggal($tanggal);
+    
     $nama_makanan = $_POST['nama_makanan'];
-    $notes        = $_POST['notes'];
-    $date         = $_POST['date'];
+
     //$makanan_id = 'MKN-' . $tgl_baru;
     //$insert = mysqli_query($con,"insert into t_menu_makanan(menu_id,menu,date) values ('$menu_id','$menu','$tgl_baru')");
+
+    $tanggal_ = date('Y/m/d');
     
-    $cek = tampil('t_pesan', 'date', "date = '$date' and active = 1");
+    $cek = tampil('p_menu_malam', 'nama_makanan', "nama_makanan = '$nama_makanan' and active = 1");
     $cek[query];
     if ($cek[rowsnum] > 0) {
         echo "<script type='text/javascript'>";
-        echo "alert('Pesanan hari ini sudah ada!');";
-        echo "location.href='../?page=22';";
+        echo "alert('Menu sudah ada!');";
+        echo "location.href='../?page=21';";
         echo "</script>";
     } else {
-        $insert = insert("t_pesan", "email,nama_makanan,notes,date", "'$user','$nama_makanan','$notes','$date'");
+        $insert = insert("p_menu_malam", "nama_makanan,date", "'$nama_makanan',SYSDATE()");
         if ($insert[status] == true) {
             echo "<script type='text/javascript'>";
             echo "alert('Menu berhasil diinput');";
-            echo "location.href='../?page=22';";
+            echo "location.href='../?page=21';";
             echo "</script>";
         }
     }
@@ -31,7 +43,7 @@ if (isset($_POST['submit'])) {
 
    // include '../css.php';
     ?>
-    <form method="POST" action="_pesan_makan_malam/pesan_tambah_menu.php">
+    <form method="POST" action="_daftar_menu/daftar_tambah_menu.php">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 
@@ -59,47 +71,24 @@ if (isset($_POST['submit'])) {
             //$menu_id = $max[0] . '-' . date('Y') . '' . date('m') . '' . date('d');
             ?>
 
-            <h4 class="modal-title">Tambah Pesanan</h4>
+            <h4 class="modal-title">Tambah Menu Makanan</h4>
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label">Menu</label>
-                        <select name="nama_makanan" id="nama_makanan" class="form-control">
-                                <option>Pilih Menu</option>
-                                    <?php
-                                    $pilih = tampil("p_menu_malam", "nama_makanan", "active = 1 and disp = 1");
-                                    if (($pilih[rowsnum] > 0 )) {
-                                        for ($i = 0; $i < $pilih[rowsnum]; $i++) {
-                                            $pilih_   = $pilih[$i][0];
-                                            ?>
-                                            <option><?php echo $pilih_ ?></option>
-                                        <?php }
-                                    }
-                                    ?>
-                            </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label">Tanggal</label>
-                        <input type="text" name="date" class="form-control" value="<?=$_GET['date']?>" readonly="">
+                        <textarea class="form-control" name="nama_makanan"></textarea>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Notes</label>
-                        <textarea class="form-control" name="notes"></textarea>
+                        <label class="control-label"></label>
+                        <input class="form-control date-picker" data-date-start-date="+0d" name="tanggal_menu_malam" readonly="" value="<?= date('Y/m/d') ?>" type="hidden">
                     </div>
                 </div>
-               <!-- <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="checkbox" name="active" value="1">
-                    </div>
-                </div>-->
             </div>
         </div>
         <div class="modal-footer">

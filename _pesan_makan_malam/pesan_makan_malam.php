@@ -6,20 +6,20 @@ $gd = getdate();
     <div class="page-head"
         <!-- BEGIN PAGE TITLE -->
         <div class="page-title">
-            <h1>Daftar Pesanan
-            </h1>
+            <h1>Daftar Pesanan</h1>
         </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <input type="text" class="form-control date-picker" class="day_filter date-picker" id="date" data-date-format="yyyy-mm-dd" name="tanggal_menu" onchange="call('_pesan_makan_malam/pesan_makan_malam_act.php?_date='+this.value)">
-            </div>
-        </div>
+        <br>
+        <br>
         <div class="row">
-            <div class="col-md-6">
-                <a href="_pesan_makan_malam/pesan_update_menu.php?id=<?= $pesan_id ?>" data-target="#modal_update_menu_" data-toggle="modal" class="btn red btn-sm">
-                    <i class="fa fa-plus"></i>
-                    Tambah Pesanan
-                </a>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <h5>Tanggal</h5>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input readonly type="text" class="form-control date-picker" class="day_filter date-picker" id="date" value="<?= date('Y/m/d') ?>" data-date-format="yyyy-mm-dd" name="tanggal_menu" onchange="call('_pesan_makan_malam/pesan_makan_malam_act.php?_date='+this.value)">
+                </div>
             </div>
         </div>
         <!-- END PAGE TITLE -->
@@ -28,7 +28,6 @@ $gd = getdate();
         <!-- END PAGE TOOLBAR -->
 
     </div>
-    <br>
     <div class="page-body" id="list">
         <?php
         include '_pesan_makan_malam/pesan_makan_malam_act.php'

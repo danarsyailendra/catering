@@ -82,7 +82,7 @@
                             </div>
                         </span>
                         <div id="modal_tambah_menu" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" id="isi_kehadiran">
+                            <div class="modal-dialog" id="tambah_menu">
                                 <div class="modal-content">
 
                                 </div>
@@ -90,6 +90,24 @@
                             </div>
                             <!— /.modal-dialog —>
                         </div>
+                        <!--
+                        <span class="pull-right" style="float: right">
+                            <div class="col-md-6">
+                                <a href="_report/report_excel.php" target="_blank" class="btn red btn-outline sbold"><i class="fa fa-file"></i> Export List Pemesan</a>
+                            </div>
+                        </span>
+                        -->
+                        <!--
+                        <div id="modal_report_menu" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" id="report_menu">
+                                <div class="modal-content">
+
+                                </div>
+                                <!— /.modal-content —>
+                            </div>
+                            <!— /.modal-dialog —>
+                        </div>
+                        -->
                         <div id="modal_update_menu" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog" id="update_menu">
                                 <div class="modal-content">

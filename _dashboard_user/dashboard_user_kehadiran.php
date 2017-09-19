@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
     if($insert[status] == true){
         echo "<script type='text/javascript'>";
         echo "alert('Anda $desc');";
-        echo "location.href='http://" . $_SERVER['SERVER_NAME'] . "/catering/?page=12';";
+        echo "location.href='http://" . $_SERVER['SERVER_NAME'] . "/catering/';";
         echo "</script>";
     }
 } else {

@@ -2,19 +2,19 @@
 session_start();
 include '../config/config.php';
 if (isset($_POST['submit'])) {
-    $menu_id = $_POST['id_menu'];
-    $delete = update('t_menu_makanan', 'active=0', "menu_id = '$menu_id'");
+    $makanan_id = $_POST['makanan_id'];
+    $delete = update('p_menu_malam', 'disp=0', "makanan_id = '$makanan_id'");
     if ($delete[status] == true) {
         echo "<script type='text/javascript'>";
         echo "alert('Menu berhasil dihapus');";
-        echo "location.href='../';";
+        echo "location.href='../?page=21';";
         echo "</script>";
     }
 } else {
-    $menu_id = $_GET['id'];
+    $makanan_id = $_GET['id'];
     ?>
-<form method="post" action="_dashboard_admin/dashboard_delete_menu.php">
-        <input type="hidden" name="id_menu" value="<?= $menu_id ?>">
+<form method="post" action="_daftar_menu/daftar_delete_menu.php">
+        <input type="hidden" name="makanan_id" value="<?= $makanan_id ?>">
         <div class="modal-body">
             <div class="row cm-fix-height center-block">
                 <img src="assets/img/sf/sign-delete.svg"> <h4 style="margin: 0;display: inline-block" >Yakin menghapus menu ini?</h4>

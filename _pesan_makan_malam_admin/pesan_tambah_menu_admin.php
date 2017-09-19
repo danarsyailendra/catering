@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
     $user         = $_SESSION['suser_email'];
     $nama_makanan = $_POST['nama_makanan'];
     $notes        = $_POST['notes'];
-    $date         = $_POST['date'];
+    $date         = date('Y/m/d');
     //$makanan_id = 'MKN-' . $tgl_baru;
     //$insert = mysqli_query($con,"insert into t_menu_makanan(menu_id,menu,date) values ('$menu_id','$menu','$tgl_baru')");
     
@@ -16,14 +16,14 @@ if (isset($_POST['submit'])) {
     if ($cek[rowsnum] > 0) {
         echo "<script type='text/javascript'>";
         echo "alert('Pesanan hari ini sudah ada!');";
-        echo "location.href='../?page=22';";
+        echo "location.href='../?page=23';";
         echo "</script>";
     } else {
         $insert = insert("t_pesan", "email,nama_makanan,notes,date", "'$user','$nama_makanan','$notes','$date'");
         if ($insert[status] == true) {
             echo "<script type='text/javascript'>";
             echo "alert('Menu berhasil diinput');";
-            echo "location.href='../?page=22';";
+            echo "location.href='../?page=23';";
             echo "</script>";
         }
     }
@@ -80,13 +80,7 @@ if (isset($_POST['submit'])) {
                                     ?>
                             </select>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="control-label">Tanggal</label>
-                        <input type="text" name="date" class="form-control" value="<?=$_GET['date']?>" readonly="">
-                    </div>
-                </div>
+                </div>    
             </div>
             <div class="row">
                 <div class="col-md-8">
@@ -95,11 +89,6 @@ if (isset($_POST['submit'])) {
                         <textarea class="form-control" name="notes"></textarea>
                     </div>
                 </div>
-               <!-- <div class="col-md-4">
-                    <div class="form-group">
-                        <input type="checkbox" name="active" value="1">
-                    </div>
-                </div>-->
             </div>
         </div>
         <div class="modal-footer">

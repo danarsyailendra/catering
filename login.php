@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     if ($cek[rowsnum] > 0) {
         $_SESSION['suser_nik'] = $nik;
         $_SESSION['suser_email'] = $email;
-        $_SESSION['suser_name'] = $username;
+        $_SESSION['suser_name'] = $nama;
         $_SESSION['suser_role'] = $role;
         header("Location:http://" . $_SERVER['SERVER_NAME'] . "/catering/");
         unset($_SESSION['login']);

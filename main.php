@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <style>
     .page-header.navbar.header-metra{
         background: #E26A6A;
@@ -95,7 +96,7 @@
                     </li>
                 </ul>
             </div-->
-            <span class="btn default btn-sm white"><?= $_SESSION['suser_email'] ?></span>
+            <span class="btn default btn-sm white"><?= $_SESSION['suser_name'] ?></span>
             <a href="logout.php" class="btn default btn-sm white">Logout</a>
         </div>
         <div class="page-top" style="background: #F3F5F9">

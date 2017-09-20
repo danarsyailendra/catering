@@ -5,10 +5,11 @@ if (isset($_POST['submit'])) {
     $user = $_POST['username'];
     $pass = $_POST['password'];
 
-    $cek = tampil('p_user', 'email,nama,role_id', "email = '$user' and password = '$pass'");
+    $cek = tampil('p_user', 'nik,email,nama,role_id', "nik = '$user' and password = '$pass'");
     //echo $cek[query];
-    list($email, $nama, $role) = $cek[0];
+    list($nik,$email, $nama, $role) = $cek[0];
     if ($cek[rowsnum] > 0) {
+        $_SESSION['suser_nik'] = $nik;
         $_SESSION['suser_email'] = $email;
         $_SESSION['suser_name'] = $username;
         $_SESSION['suser_role'] = $role;

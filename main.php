@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <style>
     .page-header.navbar.header-metra{
         background: #E26A6A;

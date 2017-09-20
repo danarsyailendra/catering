@@ -6,22 +6,14 @@ if (isset($_POST['submit'])) {
     $pesan_id = $_POST['pesan_id'];
     $nama_makanan = $_POST['nama_makanan'];
     $notes = $_POST['notes'];
-    $date = date('Y/m/d');
+    $date = $_POST['date'];
+    $delete = $_POST['delete'];
 
-    //$tanggal = $_POST['tanggal_menu_malam'];
-    /*
-      function ubahTanggal($tanggal){
-      $pisah = explode('/',$tanggal);
-      $array = array($pisah[0],$pisah[1],$pisah[2]);
-      $gabung = implode('-',$array);
-      return $gabung;
-      }
-      $tgl_baru = ubahTanggal($tanggal);
-     */
-
-    //$makanan_id_baru = 'MKN-' . $tgl_baru;
-    //$insert = mysqli_query($con,"insert into t_menu_makanan(menu_id,menu,date) values ('$menu_id','$menu','$tgl_baru')");
-    $update = update("t_pesan", "nama_makanan = '$nama_makanan', notes = '$notes'", "pesan_id='$pesan_id'");
+    if ($delete == 1) {
+        $update = delete("t_pesan", "pesan_id='$pesan_id' and email = '" . $_SESSION['suser_email'] . "'");
+    } else {
+        $update = update("t_pesan", "nama_makanan = '$nama_makanan', notes = '$notes'", "pesan_id='$pesan_id'");
+    }
     //echo $update[query];
     if ($update[status] == true) {
         echo "<script type='text/javascript'>";
@@ -79,6 +71,16 @@ if (isset($_POST['submit'])) {
                     <div class="form-group">
                         <label class="control-label">Notes</label>
                         <textarea class="form-control" name="notes"><?= $notes ?></textarea>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Batal Pesanan</label>
+                        <div class="mt-checkbox-list">
+                            <label class="mt-checkbox">
+                                <input type="checkbox" name="delete" value="1">Batal<span></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

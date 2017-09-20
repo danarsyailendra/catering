@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     //$makanan_id = 'MKN-' . $tgl_baru;
     //$insert = mysqli_query($con,"insert into t_menu_makanan(menu_id,menu,date) values ('$menu_id','$menu','$tgl_baru')");
     
-    $cek = tampil('t_pesan', 'date', "date = '$date' and active = 1");
+    $cek = tampil('t_pesan', 'date', "date = '$date' and email = '".$_SESSION['suser_name']."' and active = 1");
     $cek[query];
     if ($cek[rowsnum] > 0) {
         echo "<script type='text/javascript'>";

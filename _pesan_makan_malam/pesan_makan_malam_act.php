@@ -1,12 +1,13 @@
 <?php
+session_start();
 if (!function_exists('tampil')) {
     include '../config/config.php';
 }
 
 $_date = ($_GET['_date'])?$_GET['_date'] : date('Y-m-d');
 
-$pesan = tampil('t_pesan', 'pesan_id,nama_makanan,notes,date,close', "date = '$_date' and active = 1 and email = '".$_SESSION['suser_name']."' order by date,pesan_id");
-//echo $menu[query];
+$pesan = tampil('t_pesan', 'pesan_id,nama_makanan,notes,date,close', "date = '$_date' and active = 1 and email = '".$_SESSION['suser_email']."' order by date,pesan_id");
+//echo $pesan[query];
 if ($pesan[rowsnum] > 0) {
     $hor = ceil($pesan[rowsnum] / 3);
     $k = 0;

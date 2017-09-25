@@ -78,6 +78,15 @@
                             </div>
                             <!-- /.modal-dialog -->
                         </div>
+                        <div id="modal_update_daftar_menu" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog" id="update_menu">
+                                <div class="modal-content">
+
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
                         <div id="modal_delete_daftar_menu" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm" id="delete_menu">
                                 <div class="modal-content">

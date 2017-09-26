@@ -97,8 +97,8 @@
                             <!-- /.modal-dialog -->
                         </div>
                         <br><br><br>
-                        <div style="display: box;white-space: nowrap;overflow-x: auto;height: 500px" id="displayMenu">
-                            <table class="table table-striped table-bordered table-hover table-checkable order-column" id="daftarMenu">
+                        <div style="display: box;white-space: nowrap;overflow-x: auto;height: 600px" id="displayMenu">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 95%" id="daftarMenu">
                                 <thead>
                                     <tr>
                                         <th width="5%">No</th>

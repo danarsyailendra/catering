@@ -8,9 +8,16 @@ if (isset($_POST['submit'])) {
     $nama_makanan = $_POST['nama_makanan'];
     $notes = $_POST['notes'];
     $date = $_POST['date'];
-    //$makanan_id = 'MKN-' . $tgl_baru;
-    //$insert = mysqli_query($con,"insert into t_menu_makanan(menu_id,menu,date) values ('$menu_id','$menu','$tgl_baru')");
-
+    $nama_sub = $_POST['nama_submakanan'];
+    
+    if(isset($nama_sub)){
+        $look = tampil("p_submenu_malam,p_menu_malam", "nama_makanan,submakanan_name", "submakanan_id=$nama_sub and makanan_id=$nama_makanan");
+        $nama_makanan = $look[0][0].' - '.$look[0][1];
+    }else{
+        $look = tampil("p_menu_malam", "nama_makanan", "makanan_id=$nama_makanan");
+        $nama_makanan = $look[0][0];
+    }
+        
     $cek = tampil('t_pesan', 'date', "date = '$date' and email = '" . $_SESSION['suser_name'] . "' and active = 1");
     $cek[query];
     if ($cek[rowsnum] > 0) {
@@ -34,31 +41,6 @@ if (isset($_POST['submit'])) {
     <form method="POST" action="_pesan_makan_malam/pesan_tambah_menu.php">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-
-            <?php
-            //$generate_id = tampil("t_menu_makanan", "max(menu_id)", "date_format(t_menu_makanan.user_when,'%Y%m') = '" . date('Y') . date('m') . "'");
-            //list($max) = $generate_id[0];
-            //echo $generate_id[rowsnum];
-            //if (empty($max)) {
-            //$menu_id = 'MN-' . $tgl_baru .'-'. $bln_baru . '-' . $thn_baru;
-            //$menu_id = 'MN-' . date('Y').''. date('m') . '' . date('d');
-            /*
-              } else {
-              $max = explode('-', $max);
-              $counter = $max[3] + 1;
-              if (strlen($counter) == 1) {
-              $counter = '000' . $counter;
-              } elseif (strlen($counter) == 2) {
-              $counter = '00' . $counter;
-              } elseif (strlen($counter) == 3) {
-              $counter = '0' . $counter;
-              } else {
-              $counter = $counter;
-              }
-             */
-            //$menu_id = $max[0] . '-' . date('Y') . '' . date('m') . '' . date('d');
-            ?>
-
             <h4 class="modal-title">Tambah Pesanan</h4>
         </div>
         <div class="modal-body">
@@ -81,7 +63,6 @@ if (isset($_POST['submit'])) {
                             }
                             ?>
                         </select>
-                        <div id="sub"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -90,6 +71,9 @@ if (isset($_POST['submit'])) {
                         <input type="text" name="date" class="form-control" value="<?= $_GET['date'] ?>" readonly="">
                     </div>
                 </div>
+            </div>
+            <div class="row" id="sub">
+                
             </div>
             <div class="row">
                 <div class="col-md-8">
@@ -119,7 +103,7 @@ if (isset($_POST['submit'])) {
        $.ajax({
           type:"POST",
           dataType:"html",
-          url:"_pesan_makan_malam/tes.php",
+          url:"_pesan_makan_malam/pesan_tambah_submenu.php",
           data:"id="+id_makanan,
           success:function(msg){
               $("#sub").html(msg);

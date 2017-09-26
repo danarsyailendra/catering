@@ -79,16 +79,9 @@ if ($pesan[rowsnum] > 0) {
                                         </div>
                                     </div>
                                     -->
-                                    <div class="row">
-                                            <div class="col-md-6">
-                                                <h3><?= $nama_makanan ?></h3>
-                                            </div>
-                                    </div>
-                                    <div class="row">
-                                            <div class="col-md-6">
-                                                <p><?= $notes ?></p>
-                                            </div>
-                                    </div>
+                                                <h3 style="margin-left: 10px"><?= $nama_makanan ?></h3>
+                                                <textarea class="form-control" readonly="readonly" style="background-color: transparent; border: none;" name="notes"><?= $notes ?></textarea>
+                                                   
                                 </div>
                             </div>
                         </div>

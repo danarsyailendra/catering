@@ -1,7 +1,7 @@
 <?php
 include '../config/config.php';
 
-$sub_menu = tampil("p_submenu_malam", "submakanan_id,submakanan_name", "parent_id=" . $_POST['id'] . " and active = 1");
+$sub_menu = tampil("p_submenu_malam", "submakanan_id,submakanan_name", "parent_id=" . $_POST['id'] . " and active = 1 order by submakanan_name");
 if ($sub_menu[rowsnum] > 0) {
     ?>
     <div class="col-md-6">

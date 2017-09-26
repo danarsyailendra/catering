@@ -18,8 +18,11 @@ if (isset($_POST['submit'])) {
             $look = tampil("p_submenu_malam,p_menu_malam", "nama_makanan,submakanan_name", "submakanan_id=$nama_sub and makanan_id=$nama_makanan");
             $nama_makanan = $look[0][0] . ' - ' . $look[0][1];
         } else {
-            $look = tampil("p_menu_malam", "nama_makanan", "makanan_id=$nama_makanan");
-            $nama_makanan = $look[0][0];
+            $cek = tampil("t_pesan", "nama_makanan", "pesan_id='$pesan_id'");
+            if($nama_makanan != $cek[0][0]){
+                $look = tampil("p_menu_malam", "nama_makanan", "makanan_id=$nama_makanan");
+                $nama_makanan = $look[0][0];
+            }
         }
         $update = update("t_pesan", "nama_makanan = '$nama_makanan', notes = '$notes'", "pesan_id='$pesan_id'");
     }
@@ -53,7 +56,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-group">
                         <label class="control-label">Menu</label>
                         <select name="nama_makanan" id="nama_makanan" class="form-control">
-                            <option value=""><?= $nama_makanan ?></option>
+                            <option value="<?=$nama_makanan?>"><?= $nama_makanan ?></option>
                             <?php
                             $pilih = tampil("p_menu_malam", "nama_makanan,makanan_id", "active = 1 and disp = 1");
                             if (($pilih[rowsnum] > 0)) {

@@ -12,6 +12,15 @@ if (isset($_POST['submit'])) {
     if ($delete == 1) {
         $update = delete("t_pesan", "pesan_id='$pesan_id' and email = '" . $_SESSION['suser_email'] . "'");
     } else {
+        $nama_sub = $_POST['nama_submakanan'];
+
+        if (isset($nama_sub)) {
+            $look = tampil("p_submenu_malam,p_menu_malam", "nama_makanan,submakanan_name", "submakanan_id=$nama_sub and makanan_id=$nama_makanan");
+            $nama_makanan = $look[0][0] . ' - ' . $look[0][1];
+        } else {
+            $look = tampil("p_menu_malam", "nama_makanan", "makanan_id=$nama_makanan");
+            $nama_makanan = $look[0][0];
+        }
         $update = update("t_pesan", "nama_makanan = '$nama_makanan', notes = '$notes'", "pesan_id='$pesan_id'");
     }
     //echo $update[query];
@@ -44,14 +53,14 @@ if (isset($_POST['submit'])) {
                     <div class="form-group">
                         <label class="control-label">Menu</label>
                         <select name="nama_makanan" id="nama_makanan" class="form-control">
-                            <option><?= $nama_makanan ?></option>
+                            <option value=""><?= $nama_makanan ?></option>
                             <?php
-                            $pilih = tampil("p_menu_malam", "nama_makanan", "active = 1 and disp = 1");
+                            $pilih = tampil("p_menu_malam", "nama_makanan,makanan_id", "active = 1 and disp = 1");
                             if (($pilih[rowsnum] > 0)) {
                                 for ($i = 0; $i < $pilih[rowsnum]; $i++) {
                                     $pilih_ = $pilih[$i][0];
                                     ?>
-                                    <option><?php echo $pilih_ ?></option>
+                                    <option value="<?= $pilih[$i][1] ?>"><?php echo $pilih_ ?></option>
                                     <?php
                                 }
                             }
@@ -65,6 +74,9 @@ if (isset($_POST['submit'])) {
                         <input type="text" name="date" class="form-control" value="<?= $date ?>" readonly="">
                     </div>
                 </div>
+            </div>
+            <div class="row" id="sub">
+
             </div>
             <div class="row">
                 <div class="col-md-8">
@@ -102,3 +114,17 @@ if (isset($_POST['submit'])) {
     // include '../js.php';
 }
 ?>
+<script>
+    $("#nama_makanan").change(function () {
+        var id_makanan = $("#nama_makanan").val();
+        $.ajax({
+            type: "POST",
+            dataType: "html",
+            url: "_pesan_makan_malam/pesan_tambah_submenu.php",
+            data: "id=" + id_makanan,
+            success: function (msg) {
+                $("#sub").html(msg);
+            }
+        });
+    });
+</script>
